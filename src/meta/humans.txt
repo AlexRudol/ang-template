@@ -1,7 +1,0 @@
-# humanstxt.org/
-# The humans responsible & technology colophon
-
-# TECHNOLOGY COLOPHON
-
-    HTML5, SASS
-    Angular, TypeScript, Webpack

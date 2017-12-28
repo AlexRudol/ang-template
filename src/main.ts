@@ -1,7 +1,7 @@
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { environment } from 'environments/environment';
-
-import { AppModule } from './app';
+import { AppModule } from './app/app.module';
+import 'hammerjs';
 
 export function main(): Promise<any> {
     return platformBrowserDynamic()

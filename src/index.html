@@ -1,26 +1,81 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Template</title>
-    <meta name="description" content="<%= htmlWebpackPlugin.options.title %>">
-    <!-- base url -->
-    <base href="<%= htmlWebpackPlugin.options.metadata.baseUrl %>">
+    <head>
+        <meta charset="UTF-8" >
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1" >
 
-    <% if (htmlWebpackPlugin.options.metadata.isDevServer && htmlWebpackPlugin.options.metadata.HMR !== true) { %>
-    <!-- Webpack Dev Server reload -->
-    <script src="/webpack-dev-server.js"></script>
-    <% } %>
+        <title><%= htmlWebpackPlugin.options.title %></title>
+        <meta name="description" content="<%= htmlWebpackPlugin.options.title %>">
 
-</head>
+        <base href="<%= htmlWebpackPlugin.options.metadata.baseUrl %>">
 
-<body>
+        <!-- Apple touch icon (aka Web Clips) -->
+        <link rel="apple-touch-icon" sizes="57x57" href="assets/favicons/apple-icon-57x57.png" >
+        <link rel="apple-touch-icon" sizes="60x60" href="assets/favicons/apple-icon-60x60.png" >
+        <link rel="apple-touch-icon" sizes="72x72" href="assets/favicons/apple-icon-72x72.png" >
+        <link rel="apple-touch-icon" sizes="76x76" href="assets/favicons/apple-icon-76x76.png" >
+        <link rel="apple-touch-icon" sizes="114x114" href="assets/favicons/apple-icon-114x114.png" >
+        <link rel="apple-touch-icon" sizes="120x120" href="assets/favicons/apple-icon-120x120.png" >
+        <link rel="apple-touch-icon" sizes="144x144" href="assets/favicons/apple-icon-144x144.png" >
+        <link rel="apple-touch-icon" sizes="152x152" href="assets/favicons/apple-icon-152x152.png" >
+        <link rel="apple-touch-icon" sizes="180x180" href="assets/favicons/apple-icon-180x180.png" >
 
-<app>
-    ...
-</app>
+        <!-- Android Web App icons -->
+        <link rel="icon" type="image/png" sizes="192x192" href="assets/favicons/android-icon-192x192.png" >
 
-</body>
+        <!-- Common favicons -->
+        <link rel="icon" type="image/png" sizes="32x32" href="assets/favicons/favicon-32x32.png" >
+        <link rel="icon" type="image/png" sizes="96x96" href="assets/favicons/favicon-96x96.png" >
+        <link rel="icon" type="image/png" sizes="16x16" href="assets/favicons/favicon-16x16.png" >
+
+        <!-- Web App Manifest -->
+        <link rel="manifest" href="assets/manifest.json" >
+
+        <meta name="msapplication-TileColor" content="#1976d2" >
+        <meta name="msapplication-TileImage" content="/assets/favicons/ms-icon-144x144.png" >
+        <meta name="theme-color" content="#1976d2" >
+
+        <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300|Roboto:300,400,400i,500&subset=cyrillic" rel="stylesheet" >
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" >
+
+        <% if (htmlWebpackPlugin.options.metadata.isDevServer && htmlWebpackPlugin.options.metadata.HMR !== true) { %>
+            <!-- Webpack Dev Server reload -->
+            <script src="/webpack-dev-server.js"></script>
+        <% } %>
+
+    </head>
+    <body>
+
+        <app>
+            <!-- Loading indicator -->
+            <div id="loading" style="display: none; margin: 30vh auto 0; text-align: center; width: 250px; font-family: sans-serif; color: #e73b00;" >
+                <svg width="60" height="60" viewBox="0 0 60 60" stroke="#1976d2" xmlns="http://www.w3.org/2000/svg" >
+                    <g fill="none" fill-rule="evenodd">
+                        <g transform="translate(1 1)" stroke-width="2">
+                            <path d="M58 29c0-15-12-29-29-29" >
+                                <animateTransform attributeType="xml" attributeName="transform" type="rotate"
+                                                  from="0 29 29" to="360 29 29" dur="1s" repeatCount="indefinite" />
+                            </path>
+                        </g>
+                    </g>
+                </svg>
+            </div>
+        </app>
+
+        <script>
+            var indicator = document.getElementById("loading");
+
+            // Show Loading if it's loading > 2 sec
+            setTimeout( function() {
+                if (indicator) indicator.style.display = "block";
+            }, 2000 );
+
+            // Show Error and hide Loading if > 20 sec
+            setTimeout( function() {
+               if (indicator) indicator.innerHTML = "<div style='float: left; margin-right: 15px; font-size: 34px; line-height: 1;' >&#9888;</div><div style='text-align: left' ><b>Error</b><br> Please try again later</div>"
+            }, 20000 );
+        </script>
+
+    </body>
 </html>
