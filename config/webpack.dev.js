@@ -8,7 +8,7 @@ const NamedModulesPlugin = require('webpack/lib/NamedModulesPlugin');
 const EvalSourceMapDevToolPlugin = require('webpack/lib/EvalSourceMapDevToolPlugin');
 
 
-module.exports = function (options) {
+module.exports = function(options) {
     const ENV = process.env.ENV = process.env.NODE_ENV = 'development';
     const HOST = process.env.HOST || 'localhost';
     const PORT = process.env.PORT || 3000;
@@ -30,21 +30,6 @@ module.exports = function (options) {
             chunkFilename: '[id].chunk.js',
             library: 'ac_[name]',
             libraryTarget: 'var'
-        },
-
-        module: {
-            rules: [
-                {
-                    test: /\.css$/,
-                    use: ['style-loader', 'css-loader'],
-                    include: [helpers.root('src', 'styles')]
-                },
-                {
-                    test: /\.scss$/,
-                    use: ['style-loader', 'css-loader', 'sass-loader'],
-                    include: [helpers.root('src', 'styles')]
-                }
-            ]
         },
 
         plugins: [
@@ -69,7 +54,7 @@ module.exports = function (options) {
             public: METADATA.PUBLIC,
             historyApiFallback: true,
             watchOptions: {
-                // if you're using Docker you may need this
+                // for Docker
                 // aggregateTimeout: 300,
                 // poll: 1000,
                 ignored: /node_modules/

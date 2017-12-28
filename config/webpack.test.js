@@ -7,7 +7,7 @@ const ContextReplacementPlugin = require('webpack/lib/ContextReplacementPlugin')
 
 const ENV = process.env.ENV = process.env.NODE_ENV = 'test';
 
-module.exports = function (options) {
+module.exports = function(options) {
     return {
 
         devtool: 'inline-source-map',

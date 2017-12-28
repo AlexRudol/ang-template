@@ -4,21 +4,20 @@ const buildUtils = require('./build-utils');
 const webpackMerge = require('webpack-merge');
 const commonConfig = require('./webpack.common.js');
 
+const autoprefixer = require('autoprefixer');
 const SourceMapDevToolPlugin = require('webpack/lib/SourceMapDevToolPlugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HashedModuleIdsPlugin = require('webpack/lib/HashedModuleIdsPlugin');
 const PurifyPlugin = require('@angular-devkit/build-optimizer').PurifyPlugin;
 const ModuleConcatenationPlugin = require('webpack/lib/optimize/ModuleConcatenationPlugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-
+const CompressionPlugin = require('compression-webpack-plugin');
 
 
 function getUglifyOptions (supportES2015) {
     const uglifyCompressOptions = {
-        pure_getters: true, /* buildOptimizer */
-        // PURE comments work best with 3 passes.
-        // See https://github.com/webpack/webpack/issues/2899#issuecomment-317425926.
-        passes: 3         /* buildOptimizer */
+        pure_getters: true,
+        passes: 3
     };
 
     return {
@@ -34,7 +33,7 @@ function getUglifyOptions (supportES2015) {
     };
 }
 
-module.exports = function (env) {
+module.exports = function(env) {
     const ENV = process.env.NODE_ENV = process.env.ENV = 'production';
     const supportES2015 = buildUtils.supportES2015(buildUtils.DEFAULT_METADATA.tsConfigPath);
     const METADATA = Object.assign({}, buildUtils.DEFAULT_METADATA, {
@@ -51,30 +50,9 @@ module.exports = function (env) {
 
         output: {
             path: helpers.root('dist'),
-            filename: '[name].[chunkhash].bundle.js',
-            sourceMapFilename: '[file].map',
-            chunkFilename: '[name].[chunkhash].chunk.js'
-        },
-
-        module: {
-            rules: [
-                {
-                    test: /\.css$/,
-                    loader: ExtractTextPlugin.extract({
-                        fallback: 'style-loader',
-                        use: 'css-loader'
-                    }),
-                    include: [helpers.root('src', 'styles')]
-                },
-                {
-                    test: /\.scss$/,
-                    loader: ExtractTextPlugin.extract({
-                        fallback: 'style-loader',
-                        use: 'css-loader!sass-loader'
-                    }),
-                    include: [helpers.root('src', 'styles')]
-                }
-            ]
+            filename: '[name].[chunkhash].bundle.js'
+            //sourceMapFilename: '[file].map',
+            //chunkFilename: '[name].[chunkhash].chunk.js'
         },
 
         plugins: [
@@ -86,16 +64,26 @@ module.exports = function (env) {
                 sourceRoot: 'webpack:///'
             }),
 
-            new ExtractTextPlugin('[name].[contenthash].css'),
-
-            new PurifyPlugin(), /* buildOptimizer */
-
+            new PurifyPlugin(),
             new HashedModuleIdsPlugin(),
             new ModuleConcatenationPlugin(),
 
             new UglifyJsPlugin({
-                sourceMap: true,
-                uglifyOptions: getUglifyOptions(supportES2015)
+                uglifyOptions: {
+                    ie8: false,
+                    ecma: 6,
+                    warnings: false,
+                    mangle: true,
+                    output: {
+                        comments: false,
+                        beautify: false
+                    }
+                }
+            }),
+
+            new CompressionPlugin({
+                regExp: /\.css$|\.js$/,
+                threshold: 2 * 1024
             })
 
         ],

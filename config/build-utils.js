@@ -4,8 +4,8 @@ const fs = require('fs');
 const helpers = require('./helpers');
 
 const DEFAULT_METADATA = {
-    title: 'Angular Starter by @gdi2290 from @TipeIO',
-    baseUrl: '/',
+    title: 'Template',
+    baseUrl: './',
     isDevServer: helpers.isWebpackDevServer(),
     HMR: helpers.hasProcessFlag('hot'),
     AOT: process.env.BUILD_AOT || helpers.hasNpmFlag('aot'),
@@ -57,8 +57,6 @@ function getEnvFile(suffix) {
 /**
  * Read the tsconfig to determine if we should prefer ES2015 modules.
  * Load rxjs path aliases.
- * https://github.com/ReactiveX/rxjs/blob/master/doc/lettable-operators.md#build-and-treeshaking
- * @param supportES2015 Set to true when the output of typescript is >= ES6
  */
 function rxjsAlias(supportES2015) {
     try {
@@ -76,7 +74,7 @@ function ngcWebpackSetup(prod, metadata) {
     }
 
     const buildOptimizer = prod;
-    const sourceMap = true; // TODO: apply based on tsconfig value?
+    const sourceMap = true;
     const ngcWebpackPluginOptions = {
         skipCodeGeneration: !metadata.AOT,
         sourceMap
@@ -111,7 +109,7 @@ function ngcWebpackSetup(prod, metadata) {
         ...buildOptimizer
         ? [ { test: /\.js$/, use: [ buildOptimizerLoader ] } ]
         : []
-];
+    ];
 
     return {
         loaders,
