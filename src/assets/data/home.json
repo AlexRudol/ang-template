@@ -1,0 +1,5 @@
+{
+    "title": "Welcome",
+    "subtitle": "Angular Template Project",
+    "content": "<p>This is Home page loaded by Page component</p>"
+}

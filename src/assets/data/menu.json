@@ -1,0 +1,14 @@
+[
+    {
+        "name": "Home",
+        "url": "",
+        "external": "false",
+        "children": []
+    },
+    {
+        "name": "Test",
+        "url": "test",
+        "external": "false",
+        "children": []
+    }
+]
