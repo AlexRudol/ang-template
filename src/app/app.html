@@ -1,0 +1,21 @@
+
+<div id="sidenav-toggler" class="absolute padding-inner layer-3" >
+    <button mat-icon-button [class.hidden]="sidenav.opened" (click)="sidenav.open()" >
+        <mat-icon>menu</mat-icon>
+    </button>
+    <button mat-icon-button [class.hidden]="!sidenav.opened" (click)="sidenav.close()" >
+        <mat-icon>arrow_back</mat-icon>
+    </button>
+</div>
+
+<mat-sidenav-container class="height-100" >
+
+    <mat-sidenav id="sidenav" #sidenav mode="side" opened="true" class="width-25 padding-y mat-elevation-z1" >
+        <sidenav></sidenav>
+    </mat-sidenav>
+
+    <div id="content" class="padding-inner-x margin-top margin-left" >
+        <router-outlet></router-outlet>
+    </div>
+
+</mat-sidenav-container>

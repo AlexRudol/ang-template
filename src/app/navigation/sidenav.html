@@ -1,0 +1,9 @@
+<mat-nav-list class="margin-top" >
+    <mat-list-item *ngFor="let item of menu" >
+        <a class="width-100 padding-inner-x right"
+           routerLink="{{item.url}}"
+           routerLinkActive="active" >
+            {{item.name}}
+        </a>
+    </mat-list-item>
+</mat-nav-list>
